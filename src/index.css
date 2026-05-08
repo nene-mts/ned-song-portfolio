@@ -16,9 +16,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   body {
     @apply bg-[#F9F9F9] text-black font-sans antialiased;
+    overflow-x: hidden;
+  }
+  #root {
+    overflow-x: hidden;
   }
 }
 

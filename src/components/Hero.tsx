@@ -12,6 +12,16 @@ const letters = [
   { char: 'G', element: 'personality' },
 ];
 
+const mobileElementLabels: Record<string, string> = {
+  intro: "Hi, I'm Ned! 👋",
+  whatIDo: 'Marketing / Brand / Content / Digital',
+  polaroid: "That's me :)",
+  background: 'Shanghai ✈ Sydney',
+  stickySkills: 'Campaigns / Strategy / Content / Websites / Brand Visual',
+  global: 'EN / 中文 · Global perspective',
+  personality: 'meme mode on'
+};
+
 const elements = {
   intro: (
     <motion.div 
@@ -132,6 +142,7 @@ const elements = {
 
 export default function Hero() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState<number | null>(null);
   const beamStageRef = useRef<HTMLDivElement>(null);
   const beamRefs = useRef<Array<HTMLDivElement | null>>([]);
   const scrollRafRef = useRef<number | null>(null);
@@ -147,6 +158,7 @@ export default function Hero() {
       setHoveredIndex(null);
     }
   };
+  const getIsTouchLikePointer = () => window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   useEffect(() => {
     const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
@@ -256,7 +268,15 @@ export default function Hero() {
   ];
 
   return (
-    <section id="hero" className="h-screen flex flex-col items-center justify-end pb-10 px-6 text-center relative overflow-hidden bg-[#fbfaf6]">
+    <section
+      id="hero"
+      className="h-screen flex flex-col items-center justify-end pb-10 px-0 text-center relative overflow-hidden bg-[#fbfaf6] sm:px-6"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          setMobileActiveIndex(null);
+        }
+      }}
+    >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.98),rgba(251,250,246,0.96)_34%,rgba(248,247,243,0.92)_72%,rgba(244,243,239,0.88)_100%)]" />
 
       {/* Atmospheric glow and light structure */}
@@ -335,25 +355,57 @@ export default function Hero() {
         <div className="absolute left-[38%] top-[20%] h-72 w-[32rem] rounded-full bg-pastel-blue/10 blur-[38px]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[100vw] mx-auto translate-y-4 md:translate-y-6">
+      <div className="relative z-10 w-full max-w-[100vw] mx-auto translate-y-4 overflow-visible px-4 md:translate-y-6 sm:px-0">
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mb-5 text-xl md:text-2xl font-medium text-black/40 tracking-tight"
+          className="mb-3 text-xl font-medium tracking-tight text-black/40 md:text-2xl sm:mb-5"
         >
           I build things people <span className="text-black">want to stay for.</span>
         </motion.p>
 
-        <div className="flex w-full origin-bottom scale-x-[1.12] scale-y-[1.12] flex-nowrap items-baseline justify-center sm:scale-x-100 sm:scale-y-100">
+        <div className="mb-3 flex justify-center sm:hidden">
+          <span className="rounded-full border border-black/8 bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-black/35 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.24)] backdrop-blur-sm">
+            Tap a letter
+          </span>
+        </div>
+
+        <AnimatePresence>
+          {mobileActiveIndex !== null && letters[mobileActiveIndex]?.element && (
+            <motion.div
+              key={mobileActiveIndex}
+              initial={{ opacity: 0, y: 12, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 28 }}
+              className="absolute bottom-[calc(100%+0.6rem)] left-1/2 z-40 w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2 rounded-[1.4rem] border border-black/8 bg-white px-5 py-4 text-center shadow-[0_18px_50px_-28px_rgba(0,0,0,0.32)] sm:hidden"
+            >
+              <p className="font-display text-lg font-black leading-tight text-black">
+                {mobileElementLabels[letters[mobileActiveIndex].element as string]}
+              </p>
+              <p className="mt-1 text-[10px] font-black uppercase tracking-[0.2em] text-black/30">
+                tap another letter
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="mx-auto flex w-full max-w-[100vw] flex-nowrap items-baseline justify-center overflow-visible">
           {letters.map((item, idx) => (
             <div 
               key={idx} 
               className="relative inline-block group"
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={clearHoverIfPointerSupportsHover}
-              onClick={() => {
-                if (item.element) {
+              onClick={(event) => {
+                if (!item.element) return;
+
+                if (getIsTouchLikePointer()) {
+                  event.stopPropagation();
+                  setMobileActiveIndex((current) => current === idx ? null : idx);
+                  setHoveredIndex(null);
+                } else {
                   setHoveredIndex((current) => current === idx ? null : idx);
                 }
               }}
@@ -371,18 +423,18 @@ export default function Hero() {
                   transition: { type: 'spring', stiffness: 640, damping: 22 }
                 }}
                 className={`
-                  text-[17.8vw] sm:text-[19vw] font-display font-black leading-[0.78] tracking-[-0.095em] sm:tracking-[-0.055em] cursor-default
+                  text-[19.4vw] sm:text-[19vw] font-display font-black leading-[0.78] tracking-[-0.13em] sm:tracking-[-0.055em] cursor-default
                   transition-colors duration-300 select-none relative
-                  ${item.char === ' ' ? 'mx-[0.7vw] sm:mx-[3vw]' : ''}
+                  ${item.char === ' ' ? 'mx-[0.15vw] sm:mx-[3vw]' : ''}
                 `}
                 style={{
-                  color: hoveredIndex === idx && item.char !== ' '
+                  color: (hoveredIndex === idx || mobileActiveIndex === idx) && item.char !== ' '
                     ? pastelHexColors[idx % pastelHexColors.length]
                     : undefined,
-                  textShadow: hoveredIndex === idx 
+                  textShadow: hoveredIndex === idx || mobileActiveIndex === idx
                     ? `0 2px 0 rgba(255,255,255,0.8), 0 12px 24px rgba(0,0,0,0.12), 0 24px 44px rgba(255,243,196,0.18)` 
                     : 'none',
-                  filter: hoveredIndex === idx
+                  filter: hoveredIndex === idx || mobileActiveIndex === idx
                     ? 'drop-shadow(0 10px 18px rgba(0,0,0,0.08))'
                     : 'none',
                 }}
