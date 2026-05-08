@@ -1,0 +1,17 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="900" rx="44" fill="#FFFDF7"/>
+  <rect x="84" y="86" width="1232" height="728" rx="42" fill="#FFF1F5"/>
+  <rect x="150" y="182" width="1100" height="560" rx="38" fill="#FFFDF7"/>
+  <image href="/portfolio/woolworths/cover/ned-woolies.png" x="184" y="172" width="456" height="560" preserveAspectRatio="xMidYMid meet"/>
+  <rect x="760" y="220" width="382" height="188" rx="30" fill="#F5F1E8"/>
+  <text x="808" y="284" fill="#141414" font-size="28" font-family="Arial, sans-serif" font-weight="700">Assistant manager mode</text>
+  <text x="808" y="332" fill="#141414" fill-opacity="0.72" font-size="21" font-family="Arial, sans-serif">System checks</text>
+  <text x="808" y="362" fill="#141414" fill-opacity="0.72" font-size="21" font-family="Arial, sans-serif">Staff cover</text>
+  <text x="808" y="392" fill="#141414" fill-opacity="0.72" font-size="21" font-family="Arial, sans-serif">Break planning</text>
+  <rect x="802" y="502" width="290" height="92" rx="26" fill="#D9FFD6"/>
+  <text x="948" y="560" fill="#141414" font-size="26" font-family="Arial, sans-serif" font-weight="700" text-anchor="middle">Promoted 11 Jun 2024</text>
+  <path d="M628 534C704 500 760 454 822 408" stroke="#141414" stroke-width="10" stroke-linecap="round"/>
+  <path d="M794 402L826 402L812 428" stroke="#141414" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1178 146L1188 168L1212 178L1188 188L1178 210L1168 188L1144 178L1168 168L1178 146Z" fill="#8FBCFF"/>
+  <path d="M1088 682C1136 656 1184 656 1232 682" stroke="#FFC2CF" stroke-width="10" stroke-linecap="round"/>
+</svg>

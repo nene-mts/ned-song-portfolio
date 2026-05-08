@@ -1,0 +1,28 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="900" rx="44" fill="#FFFDF7"/>
+  <text x="92" y="112" fill="#141414" font-size="52" font-family="Arial, sans-serif" font-weight="700">Talent Mapping in Chengdu</text>
+  <text x="92" y="164" fill="#141414" fill-opacity="0.72" font-size="24" font-family="Arial, sans-serif">Sourcing through local universities and English-major graduates.</text>
+  <path d="M136 686C240 568 402 500 576 486C730 474 888 512 1024 594C1106 644 1176 688 1266 718" stroke="#141414" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 20"/>
+  <path d="M196 228C304 168 426 150 556 184C674 214 742 292 846 318C940 340 1036 322 1128 244" stroke="#FFC2CF" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="316" cy="594" r="74" fill="#D9F0FF"/>
+  <circle cx="316" cy="594" r="42" fill="#FFFDF7" stroke="#141414" stroke-width="8"/>
+  <circle cx="706" cy="476" r="124" fill="#FFF6AE"/>
+  <circle cx="706" cy="476" r="70" fill="#FFFDF7" stroke="#141414" stroke-width="10"/>
+  <circle cx="1084" cy="622" r="82" fill="#D9FFD6"/>
+  <circle cx="1084" cy="622" r="46" fill="#FFFDF7" stroke="#141414" stroke-width="8"/>
+  <path d="M706 664C706 664 644 550 644 476C644 420 671 378 706 378C741 378 768 420 768 476C768 550 706 664 706 664Z" fill="#141414"/>
+  <circle cx="706" cy="476" r="24" fill="#FFFDF7"/>
+  <path d="M360 594C444 562 526 530 618 500" stroke="#141414" stroke-width="8" stroke-linecap="round"/>
+  <path d="M792 514C888 548 966 588 1038 638" stroke="#141414" stroke-width="8" stroke-linecap="round"/>
+  <path d="M316 514V420" stroke="#141414" stroke-width="7" stroke-linecap="round"/>
+  <path d="M294 444H338" stroke="#141414" stroke-width="7" stroke-linecap="round"/>
+  <path d="M1084 542V454" stroke="#141414" stroke-width="7" stroke-linecap="round"/>
+  <path d="M1060 476H1108" stroke="#141414" stroke-width="7" stroke-linecap="round"/>
+  <text x="256" y="690" fill="#141414" font-size="26" font-family="Arial, sans-serif" font-weight="700">Shanghai</text>
+  <text x="638" y="744" fill="#141414" font-size="34" font-family="Arial, sans-serif" font-weight="700">Chengdu</text>
+  <text x="1000" y="718" fill="#141414" font-size="26" font-family="Arial, sans-serif" font-weight="700">Graduate Pool</text>
+  <rect x="950" y="272" width="286" height="132" rx="24" fill="#FFFDF7" stroke="#141414" stroke-width="6"/>
+  <text x="1093" y="324" fill="#141414" font-size="28" font-family="Arial, sans-serif" font-weight="700" text-anchor="middle">English Majors</text>
+  <text x="1093" y="364" fill="#141414" fill-opacity="0.7" font-size="20" font-family="Arial, sans-serif" text-anchor="middle">Higher response potential</text>
+  <path d="M1204 120L1214 142L1238 152L1214 162L1204 184L1194 162L1170 152L1194 142L1204 120Z" fill="#FFD36D"/>
+</svg>
