@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
-import { FileText, Mail, Linkedin } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { FileText, Mail, Linkedin, X } from 'lucide-react';
+import { ComponentType, useState } from 'react';
 
 function WeChatIcon({ className }: { className?: string }) {
   return (
@@ -24,7 +25,51 @@ function WeChatIcon({ className }: { className?: string }) {
   );
 }
 
+const contactItems: Array<{
+  name: string;
+  icon: ComponentType<{ className?: string }>;
+  href: string;
+  color: string;
+  target?: string;
+  rel?: string;
+  download?: string;
+  opensWeChat?: boolean;
+}> = [
+  {
+    name: 'LinkedIn',
+    icon: Linkedin,
+    href: 'https://www.linkedin.com/in/ned-song-sh-syd/',
+    color: 'hover:text-[#5CA8E8]',
+    target: '_blank',
+    rel: 'noreferrer'
+  },
+  {
+    name: 'Email',
+    icon: Mail,
+    href: 'mailto:songmantoushen@gmail.com',
+    color: 'hover:text-[#F2A55F]'
+  },
+  {
+    name: 'WeChat',
+    icon: WeChatIcon,
+    href: '#wechat',
+    color: 'hover:text-[#49C85F]',
+    opensWeChat: true
+  },
+  {
+    name: 'CV',
+    icon: FileText,
+    href: '/portfolio/_shared/Ned%20Song%20CV.pdf',
+    color: 'hover:text-pastel-blue',
+    target: '_blank',
+    rel: 'noreferrer',
+    download: 'Ned Song CV.pdf'
+  }
+];
+
 export default function Connect() {
+  const [isWeChatOpen, setIsWeChatOpen] = useState(false);
+
   return (
     <section id="connect" className="py-40 px-6 text-center bg-[#fcfcfc]">
       <div className="max-w-5xl mx-auto relative">
@@ -127,17 +172,19 @@ export default function Connect() {
 
         <div className="flex flex-col items-center">
           <div className="flex justify-center gap-8">
-            {[
-              { name: 'LinkedIn', icon: Linkedin, href: '#', color: 'hover:text-[#5CA8E8]' },
-              { name: 'Email', icon: Mail, href: 'mailto:songmantoushen@gmail.com', color: 'hover:text-[#F2A55F]' },
-              { name: 'WeChat', icon: WeChatIcon, href: '#', color: 'hover:text-[#49C85F]' },
-              { name: 'CV', icon: FileText, href: '/resume.pdf', color: 'hover:text-pastel-blue', target: '_blank' },
-            ].map((social) => (
+            {contactItems.map((social) => (
               <motion.a 
                 key={social.name} 
                 href={social.href}
                 target={social.target}
-                rel={social.target ? 'noreferrer' : undefined}
+                rel={social.rel}
+                download={social.download}
+                onClick={(event) => {
+                  if (social.opensWeChat) {
+                    event.preventDefault();
+                    setIsWeChatOpen(true);
+                  }
+                }}
                 whileHover={{ y: -5, scale: 1.1 }}
                 className={`group relative w-14 h-14 flex items-center justify-center bg-white rounded-2xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] transition-all duration-300 ${social.color}`}
                 title={social.name}
@@ -150,6 +197,47 @@ export default function Connect() {
             ))}
           </div>
         </div>
+
+        <AnimatePresence>
+          {isWeChatOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[120] flex items-center justify-center bg-black/55 px-6 backdrop-blur-sm"
+              onClick={() => setIsWeChatOpen(false)}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 18, scale: 0.96, rotate: -1 }}
+                animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, y: 18, scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 360, damping: 28 }}
+                className="relative w-full max-w-sm rounded-[2rem] border border-black/8 bg-white p-5 text-center shadow-[0_30px_90px_-35px_rgba(0,0,0,0.55)]"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setIsWeChatOpen(false)}
+                  className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-black/60 transition-colors hover:bg-black hover:text-white"
+                  aria-label="Close WeChat QR code"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+                <p className="mb-1 text-[11px] font-black uppercase tracking-[0.24em] text-black/35">WeChat</p>
+                <h3 className="mb-5 font-display text-2xl font-black">Scan to connect</h3>
+                <div className="overflow-hidden rounded-[1.4rem] border border-black/8 bg-[#fafafa] p-3">
+                  <img
+                    src="/portfolio/_shared/vx.JPG"
+                    alt="Ned Song WeChat QR code"
+                    className="h-auto w-full rounded-[1rem]"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <p className="mt-4 text-sm font-medium text-black/50">Add me on WeChat</p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="mt-40 pt-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6 text-black/30 text-xs font-bold uppercase tracking-widest">
           <p>© 2026 Ned Song. All rights reserved.</p>
